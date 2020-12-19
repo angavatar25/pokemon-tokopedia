@@ -1,0 +1,34 @@
+@import '../../App.scss';
+
+.content-container {
+    padding: 15px;
+    .pokemon-name {
+        font-weight: bold;
+        font-size: 12px;
+        color: white;
+        text-transform: capitalize;
+    }
+    .pokomon-skill-container {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        .skills-wrapper {
+            .skills-container {
+                background-color: rgba(255,255,255,0.2);
+                border-radius: 20px;
+                padding: 5px;
+                margin-bottom: 10px;
+                .skills {
+                    margin: 0;
+                    font-size: 10px;
+                    color: white;
+                }
+            }
+        }
+        .pokemon-image-container {
+            .pokemon-image {
+                width: 60px;
+            }
+        }
+    }
+}

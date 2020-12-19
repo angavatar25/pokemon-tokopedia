@@ -1,0 +1,51 @@
+@import '../../App.scss';
+
+.pokemon-detail-container {
+    min-height: 100vh;
+    .pokemon-detail-content {
+        padding: 20px;
+    }
+    .pokemon-card-detail {
+        height: 50vh;
+        width: 100%;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        padding: 40px 20px;
+        .button {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            font-size: 12px;
+            text-align: center;
+            font-weight: bold;
+            padding: 0 10px 20px 10px;
+            color: black;
+            &.active {
+                border-bottom: 1px solid aqua;
+            }
+        }
+        .detail-container {
+            margin-top: 20px;
+            .text-wrapper {
+                display: block;
+                .text-container {
+                    display: flex;
+                    .categories-container {
+                        width: 30%;
+                    }
+                    .categories, .stats {
+                        font-size: 12px;
+                        color: black;
+                    }
+                    .categories {
+                        margin-right: 15%;
+                        color: #CBCDD0;
+                    }
+                }
+            }
+        }
+    }
+}
