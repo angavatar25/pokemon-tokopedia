@@ -25,20 +25,27 @@ export default class PokemonListComponent extends Component {
             box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
         `;
         const {pokemon_name, pokemon_skills, pokemon_image} = this.state;
+        const skills = pokemon_skills.map((values) => 
+            <div className="skills-container">
+                <p className="skills" key={values}>{values}</p>
+            </div>
+        )
         return (
-            <NavLink to="/pokemon-detail">
+            <NavLink to={{
+                pathname:`/pokemon-detail/${pokemon_name}`,
+                pokemonName: {name:pokemon_name}  
+            }}>
                 <div className="content-container" style={{
-                    backgroundColor: "#48D0B0",
+                    backgroundColor: 'white',
                     borderRadius: "10px",
                     boxShadow: "0 0 10px 0 rgba(0,0,0,0.1)",
-                    width: '100%'
+                    width: '100%',
+                    boxSizing: 'border-box'
                 }}>
                     <p className="pokemon-name">{pokemon_name}</p>
                     <div className="pokomon-skill-container">
                         <div className="skills-wrapper">
-                            <div className="skills-container">
-                                <p className="skills">{pokemon_skills}</p>
-                            </div>
+                            {skills}
                         </div>
                         <div className="pokemon-image-container">
                             <img src={pokemon_image} alt="" className="pokemon-image"/>

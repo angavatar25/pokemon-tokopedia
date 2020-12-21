@@ -6,34 +6,22 @@ import pokeball from '../../assets/icons/pokeball.svg';
 import styled from 'styled-components';
 import axios from 'axios';
 import {API_LINK} from '../../apiReference';
+import {useQuery} from '@apollo/client';
+import query from '../../query';
 
-export default function PokemonList() {
-    const [pokemonName, setpokemonName] = useState([]);
-    const [pokemonSkills, setpokemonSkills] = useState([]);
-    useEffect(() => {
-        axios.get(API_LINK + "/pokemon/").then((response) => {
-            const pokemon_result = response.data.results
-            const pokemon = pokemon_result.map((index, id) => {
-                return{
-                    id: id,
-                    pokename: index.name
-                }
-            })
-            setpokemonName(pokemon)
-        })
-        pokemonName.map((index) => {
-            axios.get(API_LINK + "pokemon/" + index.pokename).then((response) => {
-                const abilities_result = response.data.abilities
-                const abilities = abilities_result.map((index, id) => {
-                    return {
-                        id: id,
-                        abilities: index.ability
-                    }
-                })
-                setpokemonSkills(abilities)
-            })
-        })
-    },[])
+export default function PokemonList(props) {
+    // const [pokemonName, setpokemonName] = useState([]);
+    // const [pokemonSkills, setpokemonSkills] = useState([]);
+    const {loading, error, data} = useQuery(query.allPokemon);
+    const pokemon_data = data ? data.pokemons : [];
+    const pokemon = pokemon_data.map((index) => {
+        return {
+            id: index.id,
+            name: index.name,
+            types: index.types,
+            image: index.image
+        }
+    })
     const OwnedPokemon = styled.div`
         display: flex;
         box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.12);
@@ -76,11 +64,13 @@ export default function PokemonList() {
             </div>
             <div className="card-stack-container">
                 <div className="row">
-                    {pokemonName.map((index, id) => {
+                    {pokemon.map((index) => {
                         return(
-                            <div className="col-6" key={id}>
+                            <div className="col-6" key={index.id}>
                                 <PokemonListComponent
-                                    PokemonName={index.pokename}
+                                    PokemonName={index.name}
+                                    PokemonSkills={index.types}
+                                    PokemonImage={index.image}
                                 />
                             </div>
                         )
