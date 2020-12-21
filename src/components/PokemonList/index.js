@@ -33,7 +33,7 @@ export default class PokemonListComponent extends Component {
         return (
             <NavLink to={{
                 pathname:`/pokemon-detail/${pokemon_name}`,
-                pokemonName: {name:pokemon_name}  
+                pokemonName: pokemon_name
             }}>
                 <div className="content-container" style={{
                     backgroundColor: 'white',

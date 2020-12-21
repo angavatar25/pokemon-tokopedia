@@ -18,6 +18,8 @@ const query = {
                 number
                 name
                 classification
+                image
+                types
                 resistant
                 weaknesses
                 height {
