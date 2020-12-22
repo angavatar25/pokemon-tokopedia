@@ -11,15 +11,16 @@ export default function MyPokemonList(props) {
     const pokemonStorage = localStorage.getItem('pokemon');
     let parsedPokemon = JSON.parse(pokemonStorage)
     const [pokemonList, setpokemonList] = useState(parsedPokemon)
-    const [emptyPokeomon, setemptyPokeomon] = useState(false)
+    const [emptyImage, setemptyImage] = useState(false)
     var imageEmpty = props;
-    var lengthOfArray = pokemonList.length;
+    // var lengthOfArray = pokemonList.length;
+    // console.log(lengthOfArray)
 
     useEffect(() => {
-        if (lengthOfArray == 0) {
-            setemptyPokeomon(true)
-        } else {setemptyPokeomon(false)}
-    },[lengthOfArray])
+        if(pokemonList == null) {
+            setemptyImage(true)
+        } else setemptyImage(false)
+    })
     
     const Navigation = styled.div`
         display: flex;
@@ -38,7 +39,7 @@ export default function MyPokemonList(props) {
     }
 
     imageEmpty = (
-        <div className={emptyPokeomon ? "pokemon-not-available" : "pokemon-not-available inactive"}>
+        <div className={emptyImage == false ? "pokemon-not-available inactive" : 'pokemon-not available'}>
             <div className="child" style={{textAlign: 'center'}}>
                 <img src={box} alt="unavailable" className="image" style={{
                     width: '100px',
@@ -58,7 +59,7 @@ export default function MyPokemonList(props) {
             <div className="title-container">
                 <h3 className="main-title">My Pokemon List</h3>
             </div>
-            {pokemonList.map((index, id) => {
+            {pokemonList && pokemonList.map((index, id) => {
                 return (
                     <MyPokemonCardList
                         PokemonImage={index.image}
