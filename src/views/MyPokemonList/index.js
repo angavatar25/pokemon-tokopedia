@@ -17,10 +17,10 @@ export default function MyPokemonList(props) {
     // console.log(lengthOfArray)
 
     useEffect(() => {
-        if(pokemonList == null) {
+        if(pokemonList == null || pokemonList.length == 0) {
             setemptyImage(true)
         } else setemptyImage(false)
-    })
+    },[pokemonList])
     
     const Navigation = styled.div`
         display: flex;
@@ -37,18 +37,31 @@ export default function MyPokemonList(props) {
         pokemonList.splice(pokemonList.indexOf(name), 1)
         localStorage.setItem("pokemon", JSON.stringify(pokemonList))
     }
-
-    imageEmpty = (
-        <div className={emptyImage == false ? "pokemon-not-available inactive" : 'pokemon-not available'}>
-            <div className="child" style={{textAlign: 'center'}}>
-                <img src={box} alt="unavailable" className="image" style={{
-                    width: '100px',
-                    height: '100px'
-                }}/>
-                <p className="warning" style={{margin: '20px 0'}}>No pokemon available</p>
+    if (emptyImage == true) {
+        imageEmpty = (
+            <div className='pokemon-not-available'>
+                <div className="child" style={{textAlign: 'center'}}>
+                    <img src={box} alt="unavailable" className="image" style={{
+                        width: '100px',
+                        height: '100px'
+                    }}/>
+                    <p className="warning" style={{margin: '20px 0'}}>No pokemon available</p>
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        imageEmpty = (
+            <div className='pokemon-not-available inactive'>
+                <div className="child" style={{textAlign: 'center'}}>
+                    <img src={box} alt="unavailable" className="image" style={{
+                        width: '100px',
+                        height: '100px'
+                    }}/>
+                    <p className="warning" style={{margin: '20px 0'}}>No pokemon available</p>
+                </div>
+            </div>
+        )
+    }
     return (
         <div className="my-pokemon-list-container">
             <NavLink to="/">
