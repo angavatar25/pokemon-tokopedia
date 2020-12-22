@@ -10,9 +10,9 @@ export default function MyPokemonList() {
     const pokemonStorage = localStorage.getItem('pokemon');
     let parsedPokemon = JSON.parse(pokemonStorage)
     const [pokemonList, setpokemonList] = useState(parsedPokemon)
-    useEffect(() => {
-        handleRemove()
-    },[])
+    // useEffect(() => {
+    //     handleRemove()
+    // },[])
     const Navigation = styled.div`
         display: flex;
         justify-content: space-between;
@@ -23,7 +23,7 @@ export default function MyPokemonList() {
         fill: "white"
     }
     const handleRemove = name => {
-        setpokemonList(pokemonList => pokemonList.filter(index => index !== name))
+        setpokemonList(pokemonList => pokemonList.filter(index => index.name !== name))
         pokemonList.splice(pokemonList.indexOf(name), 1)
         localStorage.setItem("pokemon", JSON.stringify(pokemonList))
     }
