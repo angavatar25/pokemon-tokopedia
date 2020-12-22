@@ -1,14 +1,28 @@
 import React,{useState, useEffect} from 'react';
 import './pokemonlist.scss';
-import Settings from '../../assets/icons/settings.svg';
 import PokemonListComponent from '../../components/PokemonList';
 import pokeball from '../../assets/icons/pokeball.svg';
 import styled from 'styled-components';
-import axios from 'axios';
-import {API_LINK} from '../../apiReference';
 import {useQuery} from '@apollo/client';
 import query from '../../query';
 import { NavLink } from 'react-router-dom';
+
+const OwnedPokemon = styled.div`
+    display: flex;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.12);
+    padding: 10px;
+    border-radius: 50px;
+    background-color: #76BDFE;
+    color: white;
+`
+const ImageContainer = styled.div`
+    width: 10%;
+    margin-right: 5%;
+`
+const TextContainer = styled.div`
+    width: 70%;
+    margin: auto 0;
+`
 
 export default function PokemonList(props) {
     const [ownedPokemon, setownedPokemon] = useState()
@@ -17,8 +31,12 @@ export default function PokemonList(props) {
     let pokemonStorage = localStorage.getItem('pokemon')
     const parsedPokemon = JSON.parse(pokemonStorage)
     useEffect(() => {
-        setownedPokemon(parsedPokemon.length)
-    }, [])
+        if (parsedPokemon === null) {
+            setownedPokemon('0')
+        } else {
+            setownedPokemon(parsedPokemon.length)
+        }
+    },[])
     const pokemon = pokemon_data.map((index) => {
         return {
             id: index.id,
@@ -27,28 +45,13 @@ export default function PokemonList(props) {
             image: index.image
         }
     })
-    const OwnedPokemon = styled.div`
-        display: flex;
-        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.12);
-        padding: 10px;
-        border-radius: 50px;
-        background-color: #76BDFE;
-        color: white;
-    `
-    const ImageContainer = styled.div`
-        width: 10%;
-        margin-right: 5%;
-    `
-    const TextContainer = styled.div`
-        width: 70%;
-        margin: auto 0;
-    `
+
     return (
         <div className="pokemon-list-container">
-            <div className="navigation-container">
+            {/* <div className="navigation-container">
                 <img src="" alt="" className="icon back-icon"/>
                 <img src={Settings} alrt="" className="icon settings-icon"/>
-            </div>
+            </div> */}
             <div className="title-container">
                 <h1 className="main-title">Pokedex</h1>
                 <NavLink to="/my-pokemon-list">

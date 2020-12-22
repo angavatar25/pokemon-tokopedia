@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import './pokemondetail.scss';
 import BackIcon from '../../assets/icons/back-arrow.svg';
@@ -8,14 +8,9 @@ import query from '../../query';
 import {useQuery} from '@apollo/client';
 
 const Navigation = styled.div`
-display: flex;
-justify-content: space-between;
-margin-top: 30px;
-`
-const MyIcon = styled.img.attrs(props => ({
-    src: `url(${props.img})`
-    }))`
-    width: 25px
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
 `
 const PokemonDetailContainer = styled.div`
     display: flex;
@@ -57,9 +52,10 @@ export default function PokemonDetail({props, match}) {
     let params = match.params
     const pokemonName = params.pokemon_name;
     var inputPokemon = props;
-    const [menuState, setmenuState] = useState("About")
+    var toast = props;
     const [inputNickname, setinputNickname] = useState(false)
     const [nicknameValue, setnicknameValue] = useState('')
+    const [toastState, settoastState] = useState(false)
     const {loading, error, data} = useQuery(query.pokemonInfo(pokemonName));
     const details = data ? data.pokemon : [];
 
@@ -68,14 +64,30 @@ export default function PokemonDetail({props, match}) {
     }
 
     const saveToList = () => {
-        var detail = {"name": nicknameValue, "image": details.image}
+        var detail = {"id": details.id, "name": nicknameValue, "image": details.image}
         var pokemon = JSON.parse(localStorage.getItem("pokemon") || "[]")
         pokemon.push(detail)
         localStorage.setItem("pokemon", JSON.stringify(pokemon))
+        setnicknameValue('')
+        setinputNickname(false)
+        settoastState(true)
     }
     const buttonValue = () => {
         setinputNickname(true)
+        setnicknameValue('')
     }
+    useEffect(() => {
+        setInterval(function() {
+            settoastState(false)
+        }, 6000)
+    }, [])
+    toast = (
+        <div className={toastState ? "toast-container active" : "toast-container"}>
+            <div className="text-container">
+                <p className="toast-text">Pokemon added successfully</p>
+            </div>
+        </div>
+    )
 
     inputPokemon = (
         <div className={inputNickname ? "container active" : "container"}>
@@ -181,6 +193,7 @@ export default function PokemonDetail({props, match}) {
                     </button>
                 </div>
                 {inputPokemon}
+                {toast}
             </div>
         </div>
     )

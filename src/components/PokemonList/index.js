@@ -40,7 +40,8 @@ export default class PokemonListComponent extends Component {
                     borderRadius: "10px",
                     boxShadow: "0 0 10px 0 rgba(0,0,0,0.1)",
                     width: '100%',
-                    boxSizing: 'border-box'
+                    boxSizing: 'border-box',
+                    height: '15vh'
                 }}>
                     <p className="pokemon-name">{pokemon_name}</p>
                     <div className="pokomon-skill-container">

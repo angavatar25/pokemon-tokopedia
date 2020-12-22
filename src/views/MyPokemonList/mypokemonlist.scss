@@ -2,7 +2,15 @@
 
 .my-pokemon-list-container {
     padding: 20px;
+    min-height: 100vh;
     .title-container {
         margin: 30px 0 20px 0;
+    }
+}
+
+.pokemon-not-available {
+    margin: 60px 0;
+    &.inactive {
+        display: none;
     }
 }
