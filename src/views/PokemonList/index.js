@@ -8,12 +8,17 @@ import axios from 'axios';
 import {API_LINK} from '../../apiReference';
 import {useQuery} from '@apollo/client';
 import query from '../../query';
+import { NavLink } from 'react-router-dom';
 
 export default function PokemonList(props) {
-    // const [pokemonName, setpokemonName] = useState([]);
-    // const [pokemonSkills, setpokemonSkills] = useState([]);
+    const [ownedPokemon, setownedPokemon] = useState()
     const {loading, error, data} = useQuery(query.allPokemon);
     const pokemon_data = data ? data.pokemons : [];
+    let pokemonStorage = localStorage.getItem('pokemon')
+    const parsedPokemon = JSON.parse(pokemonStorage)
+    useEffect(() => {
+        setownedPokemon(parsedPokemon.length)
+    }, [])
     const pokemon = pokemon_data.map((index) => {
         return {
             id: index.id,
@@ -46,21 +51,23 @@ export default function PokemonList(props) {
             </div>
             <div className="title-container">
                 <h1 className="main-title">Pokedex</h1>
-                <OwnedPokemon>
-                    <ImageContainer>
-                        <img src={pokeball} alt="" style={{width: '100%'}}/>
-                    </ImageContainer>
-                    <TextContainer>
-                        <p className="owned-pokemon" 
-                            style={{
-                                margin: "0", 
-                                fontSize: "12px", 
-                                fontWeight: 'bold'
-                            }}>
-                            Owned Pokemon (20 Pokemon)
-                        </p>
-                    </TextContainer>
-                </OwnedPokemon>
+                <NavLink to="/my-pokemon-list">
+                    <OwnedPokemon>
+                        <ImageContainer>
+                            <img src={pokeball} alt="" style={{width: '100%'}}/>
+                        </ImageContainer>
+                        <TextContainer>
+                            <p className="owned-pokemon" 
+                                style={{
+                                    margin: "0", 
+                                    fontSize: "12px", 
+                                    fontWeight: 'bold'
+                                }}>
+                                Owned Pokemon ({ownedPokemon} Pokemon)
+                            </p>
+                        </TextContainer>
+                    </OwnedPokemon>
+                </NavLink>
             </div>
             <div className="card-stack-container">
                 <div className="row">

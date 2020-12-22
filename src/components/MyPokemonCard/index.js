@@ -47,10 +47,10 @@ export default class MyPokemonCardList extends Component {
       <div className="card-container my-pokemon-card">
         <div className="row">
             <div className="col-4 image-container px-0">
-                <PokemonImage src={pokemon}></PokemonImage>
+                <PokemonImage src={this.props.PokemonImage}></PokemonImage>
             </div>
             <div className="col-8 text-container">
-                <Nickname>Nickname</Nickname>
+                <Nickname>{this.props.PokemonNickname}</Nickname>
                 <PokemonDetail>
                     <PokemonSkillContainer>
                         <PokemonSkillText>Skills</PokemonSkillText>
@@ -58,8 +58,20 @@ export default class MyPokemonCardList extends Component {
                 </PokemonDetail>
             </div>
         </div> 
-        <CloseButtonContainer>
-            <img src={Remove} alt="" style={{width: '10%'}}/>
+        {/* <button className="close-button-container" onClick={this.props.onRemove} style={{
+            position: "absolute",
+            top: "0",
+            right: "0",
+            textAlign: "right",
+            padding: "10px 15px",
+            backgroundColor: "transparent",
+            border: "none",
+            outline: "none"
+        }}>
+            
+        </button> */}
+        <CloseButtonContainer >
+            <img src={Remove} alt="" onClick={this.props.onRemove} style={{width: '10%', cursor: 'pointer'}}/>
         </CloseButtonContainer>
       </div>
     );

@@ -68,9 +68,7 @@ export default function PokemonDetail({props, match}) {
     }
 
     const saveToList = () => {
-        var detail = [
-            {"name": nicknameValue, "image": details.image}
-        ]
+        var detail = {"name": nicknameValue, "image": details.image}
         var pokemon = JSON.parse(localStorage.getItem("pokemon") || "[]")
         pokemon.push(detail)
         localStorage.setItem("pokemon", JSON.stringify(pokemon))
@@ -78,8 +76,9 @@ export default function PokemonDetail({props, match}) {
     const buttonValue = () => {
         setinputNickname(true)
     }
-    if (inputNickname === true) {
-        inputPokemon = (
+
+    inputPokemon = (
+        <div className={inputNickname ? "container active" : "container"}>
             <section className="input-nickname-container">
                 <div className="title-container">
                     <h3 className="title">Pokemon Catched Successfully</h3>
@@ -91,13 +90,14 @@ export default function PokemonDetail({props, match}) {
                     <input type="text" name="" id="" className="input-nickname" onChange={nicknameInput} value={nicknameValue} placeholder="Enter a nickname"/>
                 </div>
                 <div className="button-save-container">
+                    <button className="button-save outline" onClick={() => setinputNickname(false)}>Close</button>
                     <button className="button-save" onClick={saveToList}>
                         Save
                     </button>
                 </div>
             </section>
-        )
-    }
+        </div>
+    )
     
     const DetailNavigation = [
         {id: 1, text: "About"},
