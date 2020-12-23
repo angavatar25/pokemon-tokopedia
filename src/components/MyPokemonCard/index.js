@@ -53,7 +53,7 @@ export default class MyPokemonCardList extends Component {
                 <Nickname>{this.props.PokemonNickname}</Nickname>
                 <PokemonDetail>
                     <PokemonSkillContainer>
-                        <PokemonSkillText>Skills</PokemonSkillText>
+                        <PokemonSkillText>{this.props.PokemonName}</PokemonSkillText>
                     </PokemonSkillContainer>
                 </PokemonDetail>
             </div>

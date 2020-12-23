@@ -6,6 +6,7 @@ import Heart from '../../assets/icons/heart.svg';
 import { NavLink } from 'react-router-dom';
 import query from '../../query';
 import {useQuery} from '@apollo/client';
+import {small_device} from '../../breakpoints';
 
 const Navigation = styled.div`
     display: flex;
@@ -43,11 +44,43 @@ const PokemonImageContainer = styled.div`
 const PokemonImage = styled.img.attrs(props => ({
     src: props.src
 }))`
-    width: 200px;
     height: auto;
     z-index: 1;
+    width: 200px;
+    @media (max-width: ${small_device}) {
+        width: 120px;
+    }
 `
-
+const PokemonAbout = styled.h3`
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 20px;
+`
+const ButtonContainer = styled.div`
+    position: absolute;
+    bottom: 0;
+    padding-bottom: inherit;
+    margin: auto;
+    text-align: center;
+    left: 0;
+    right: 0;
+`
+const CatchButton = styled.button`
+    border: none;
+    background-color: #48D0B0;
+    box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.3);
+    color: white;
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
+    font-weight: bold;
+    outline: none;
+    @media (max-width: ${small_device}) {
+        width: 60px;
+        height: 60px;
+        font-size: 10px;
+    }
+`
 export default function PokemonDetail({props, match}) {
     let params = match.params
     const pokemonName = params.pokemon_name;
@@ -58,13 +91,15 @@ export default function PokemonDetail({props, match}) {
     const [toastState, settoastState] = useState(false)
     const {loading, error, data} = useQuery(query.pokemonInfo(pokemonName));
     const details = data ? data.pokemon : [];
-
+    const resistant = details.resistant || [];
+    const weaknesses = details.weaknesses || [];
+    
     const nicknameInput = (event) => {
         setnicknameValue(event.target.value)
     }
 
     const saveToList = () => {
-        var detail = {"id": details.id, "name": nicknameValue, "image": details.image}
+        var detail = {"id": details.id, "name": nicknameValue, "pokemonName": details.name ,"image": details.image}
         var pokemon = JSON.parse(localStorage.getItem("pokemon") || "[]")
         pokemon.push(detail)
         localStorage.setItem("pokemon", JSON.stringify(pokemon))
@@ -113,9 +148,9 @@ export default function PokemonDetail({props, match}) {
     let PokemonDetailArray = {
         about: [
             {id: 1, categories: "Classification", skill: details.classification},
-            {id: 2, categories: "Height", skill: "(Maximum)"},
-            {id: 3, categories: "Resistant", skill: details.resistant},
-            {id: 4, categories: "Weakness", skill: details.weaknesses},
+            {id: 2, categories: "Flee Rate", skill: details.fleeRate},
+            {id: 3, categories: "Resistant", skill: resistant + (resistant.length - 1 ? ', ' : '')},
+            {id: 4, categories: "Weakness", skill: weaknesses + (weaknesses.length - 1 ? ', ' : '')},
         ]
     }
     const IconSize = {
@@ -129,7 +164,6 @@ export default function PokemonDetail({props, match}) {
                     <NavLink to="/">
                         <img src={BackIcon} alt="" className="icon" style={IconSize}/>
                     </NavLink>
-                    <img src={Heart} alt="" className="icon" style={IconSize}/>
                 </Navigation>
                 <PokemonDetailContainer>
                     <div className="left-side">
@@ -151,13 +185,14 @@ export default function PokemonDetail({props, match}) {
                     </div>
                 </PokemonDetailContainer>
                 <PokemonImageContainer>
-                    {/* <img src={pokemon} alt="" className="pokemon"/> */}
                     <PokemonImage src={details.image}></PokemonImage>
                 </PokemonImageContainer>
-                {/* {menu} */}
                 <div className="card-container pokemon-card-detail">
                     <div className="detail-container">
                         <div className="text-wrapper">
+                            <PokemonAbout>
+                                About
+                            </PokemonAbout>
                             {PokemonDetailArray.about && PokemonDetailArray.about.map((index,id) => {
                                 return(
                                     <div className="text-container">
@@ -173,11 +208,11 @@ export default function PokemonDetail({props, match}) {
                         </div>
                     </div>
                 </div>
-                <div className="button-container">
-                    <button onClick={buttonValue} className="catch-pokemon">
+                <ButtonContainer>
+                    <CatchButton onClick={buttonValue}>
                         Catch <br/> Pokemon
-                    </button>
-                </div>
+                    </CatchButton>
+                </ButtonContainer>
                 {inputPokemon}
                 {toast}
             </div>

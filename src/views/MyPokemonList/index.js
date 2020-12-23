@@ -70,12 +70,13 @@ export default function MyPokemonList(props) {
             <div className="title-container">
                 <h3 className="main-title">My Pokemon List</h3>
             </div>
-            {pokemonList && pokemonList.map((index, id) => {
+            {pokemonList && pokemonList.map((index) => {
                 return (
                     <MyPokemonCardList
                         key={index.key}
                         PokemonImage={index.image}
                         PokemonNickname={index.name}
+                        PokemonName={index.pokemonName}
                         onRemove={() => handleRemove(index.name)}
                     />
                 )
