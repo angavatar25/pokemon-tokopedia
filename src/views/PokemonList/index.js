@@ -12,8 +12,9 @@ const OwnedPokemon = styled.div`
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.12);
     padding: 10px;
     border-radius: 50px;
-    background-color: #76BDFE;
+    background-color: white;
     color: white;
+    margin: 30px 0 50px 0;
 `
 const ImageContainer = styled.div`
     width: 10%;
@@ -48,12 +49,8 @@ export default function PokemonList(props) {
 
     return (
         <div className="pokemon-list-container">
-            {/* <div className="navigation-container">
-                <img src="" alt="" className="icon back-icon"/>
-                <img src={Settings} alrt="" className="icon settings-icon"/>
-            </div> */}
             <div className="title-container">
-                <h1 className="main-title">Pokedex</h1>
+                <h1 className="main-title" style={{color: 'white'}}>Pokedex</h1>
                 <NavLink to="/my-pokemon-list">
                     <OwnedPokemon>
                         <ImageContainer>
@@ -64,7 +61,8 @@ export default function PokemonList(props) {
                                 style={{
                                     margin: "0", 
                                     fontSize: "12px", 
-                                    fontWeight: 'bold'
+                                    fontWeight: 'bold',
+                                    color: '#76BDFE'
                                 }}>
                                 Owned Pokemon ({ownedPokemon} Pokemon)
                             </p>

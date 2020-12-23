@@ -13,11 +13,9 @@ export default function MyPokemonList(props) {
     const [pokemonList, setpokemonList] = useState(parsedPokemon)
     const [emptyImage, setemptyImage] = useState(false)
     var imageEmpty = props;
-    // var lengthOfArray = pokemonList.length;
-    // console.log(lengthOfArray)
-
+    
     useEffect(() => {
-        if(pokemonList == null || pokemonList.length == 0) {
+        if(pokemonList === null || pokemonList.length === 0) {
             setemptyImage(true)
         } else setemptyImage(false)
     },[pokemonList])
@@ -37,7 +35,7 @@ export default function MyPokemonList(props) {
         pokemonList.splice(pokemonList.indexOf(name), 1)
         localStorage.setItem("pokemon", JSON.stringify(pokemonList))
     }
-    if (emptyImage == true) {
+    if (emptyImage === true) {
         imageEmpty = (
             <div className='pokemon-not-available'>
                 <div className="child" style={{textAlign: 'center'}}>
@@ -75,6 +73,7 @@ export default function MyPokemonList(props) {
             {pokemonList && pokemonList.map((index, id) => {
                 return (
                     <MyPokemonCardList
+                        key={index.key}
                         PokemonImage={index.image}
                         PokemonNickname={index.name}
                         onRemove={() => handleRemove(index.name)}

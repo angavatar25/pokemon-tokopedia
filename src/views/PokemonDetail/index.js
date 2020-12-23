@@ -110,20 +110,6 @@ export default function PokemonDetail({props, match}) {
             </section>
         </div>
     )
-    
-    const DetailNavigation = [
-        {id: 1, text: "About"},
-        {id: 2, text: "Base Stats"},
-        {id: 3, text: "Attacks"},
-        {id: 4, text: "Evolutions"},
-    ]
-
-    const DetailNavigationContainer = styled.div`
-        display: flex;
-        width: 100%;
-        border-bottom: 1px solid gray;
-        justify-content: center;
-    `
     let PokemonDetailArray = {
         about: [
             {id: 1, categories: "Classification", skill: details.classification},

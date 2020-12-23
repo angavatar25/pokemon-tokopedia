@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import './comp_pokemonlist.scss';
-import styled from 'styled-components';
-import pokemon from '../../assets/images/pokemon.png';
 import { NavLink } from 'react-router-dom';
 
 export default class PokemonListComponent extends Component {
@@ -14,16 +12,6 @@ export default class PokemonListComponent extends Component {
         }
     }
     render() {
-        const Title = styled.h1`
-            font-size: 1.5em;
-            text-align: center;
-            color: palevioletred;
-        `;
-        const PokemonComponentContainer = styled.div`
-            background-color: #48D0B0;
-            border-radius: 10px;
-            box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
-        `;
         const {pokemon_name, pokemon_skills, pokemon_image} = this.state;
         const skills = pokemon_skills.map((values) => 
             <div className="skills-container">
