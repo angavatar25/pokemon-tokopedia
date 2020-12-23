@@ -32,6 +32,7 @@ export default function PokemonList(props) {
     let pokemonStorage = localStorage.getItem('pokemon')
     const parsedPokemon = JSON.parse(pokemonStorage)
     useEffect(() => {
+        document.title = "My Pokemons"
         if (parsedPokemon === null) {
             setownedPokemon('0')
         } else {

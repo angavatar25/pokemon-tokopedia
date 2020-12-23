@@ -112,6 +112,7 @@ export default function PokemonDetail({props, match}) {
         setnicknameValue('')
     }
     useEffect(() => {
+        document.title = "Pokemon Detail " + "(" + details.name + ")"
         setInterval(function() {
             settoastState(false)
         }, 6000)
